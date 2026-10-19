@@ -673,6 +673,12 @@ a.whatsapp-float:hover,a.whatsapp-float:focus-visible{background:#b8f5cf;color:#
 @media(max-width:760px){.services-page .service-editorial-grid{grid-template-columns:1fr;}.services-page .service-editorial-card{padding:26px;}.services-page .page-header::after{right:-20px;font-size:130px;top:135px;}}
 @media(prefers-reduced-motion:reduce){.services-page .service-editorial-card:hover,.service-editorial-card:hover .service-card-link>span{transform:none;}}
 
+/* Keep the tools ticker moving on every device, including Reduce Motion. */
+.marquee-wrap .marquee,
+.home-page .marquee-wrap .marquee{
+  animation:scroll-left 30s linear infinite;
+  animation-duration:30s !important;
+}
 </style>
 </head>
 <body>

@@ -145,4 +145,23 @@
     });
   }
   if (document.documentElement.lang === 'en' && document.querySelector('[data-mxn]')) loadUsdPrices();
+
+  // Fill wide viewports before duplicating the logo sequence for a gapless loop.
+  document.querySelectorAll('.client-logo-track').forEach(function(track){
+    var groups = track.querySelectorAll('.client-logo-group');
+    if (groups.length !== 2) return;
+    var sequence = groups[0].querySelector('.client-logo-repeat');
+    if (!sequence) return;
+    function fillLogoTrack(){
+      var guard = 0;
+      while (groups[0].getBoundingClientRect().width < window.innerWidth + 220 && guard++ < 12) {
+        groups[0].appendChild(sequence.cloneNode(true));
+      }
+      groups[1].innerHTML = groups[0].innerHTML;
+      groups[1].setAttribute('aria-hidden', 'true');
+      groups[1].querySelectorAll('img').forEach(function(img){ img.alt = ''; });
+    }
+    fillLogoTrack();
+    window.addEventListener('resize', fillLogoTrack, {passive:true});
+  });
 })();

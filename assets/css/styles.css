@@ -726,3 +726,69 @@ a.whatsapp-float:hover,a.whatsapp-float:focus-visible{background:#b8f5cf;color:#
   filter:grayscale(1) contrast(1.1);
   opacity:.8;
 }
+
+/* Reference-inspired client collection below the continuous moving strip. */
+.client-brands .client-logo-window{margin-bottom:30px;}
+.client-logo-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-items:center;gap:24px 28px;padding-top:30px;border-top:1px solid #f0efeb;}
+.client-logo-grid .client-logo{width:100%;height:100px;padding:12px 4px;min-width:0;}
+.client-logo-grid .client-logo img{width:100%;height:76px;opacity:.42;}
+.client-logo-grid .client-logo img[src$="td-vip.svg"],.client-logo-grid .client-logo img[src$="score-baja-1000.svg"],.client-logo-grid .client-logo img[src$="sema-show.svg"]{opacity:.5;}
+@media(max-width:1000px){.client-logo-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 30px;}}
+@media(max-width:640px){.client-brands .client-logo-window{margin-bottom:20px;}.client-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;padding-top:22px;}.client-logo-grid .client-logo{height:88px;}.client-logo-grid .client-logo img{height:64px;}.client-logo-grid .client-logo:last-child{grid-column:1/-1;width:calc(50% - 14px);justify-self:center;}}
+
+/* Compact client logos on phones. */
+@media(max-width:640px){
+  .client-logo{width:140px;height:74px;padding:8px 14px;}
+  .client-logo img{width:112px;height:58px;}
+  .client-logo-grid{gap:10px 24px;}
+  .client-logo-grid .client-logo{height:68px;padding:8px 4px;}
+  .client-logo-grid .client-logo img{width:100%;max-width:112px;height:48px;}
+}
+
+/* Optical sizing for individual client marks, shared by ticker and grid. */
+.client-logo-window{padding-block:8px;}
+.client-logo img[src$="td-vip.svg"]{transform:scale(.78);}
+.client-logo img[src$="paseo-del-alamo.svg"]{transform:scale(1.15);}
+.client-logo img[src$="grupo-ortiz.svg"]{transform:scale(1.2);}
+.client-logo-grid{grid-template-columns:repeat(8,minmax(0,1fr));}
+@media(max-width:1000px){.client-logo-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+@media(max-width:640px){
+ .client-logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+ .client-logo-grid .client-logo:last-child{grid-column:auto;width:100%;justify-self:stretch;}
+}
+
+/* Agency introduction: editorial type balanced with a custom strategy diagram. */
+.agency-intro{display:grid;grid-template-columns:1.5fr 1fr;gap:64px;align-items:center;padding-top:24px;padding-bottom:64px;margin-bottom:36px;position:relative;}
+.agency-kicker{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#62625e;}
+.agency-kicker>span{width:7px;height:7px;background:var(--accent);border-radius:50%;flex-shrink:0;}
+.client-brands .agency-intro h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(36px,4.3vw,58px);font-weight:500;line-height:1.08;letter-spacing:-.03em;text-transform:none;text-align:left;color:var(--ink);margin:24px 0;}
+.agency-intro-copy>p{max-width:46ch;font-size:16px;line-height:1.8;color:#696961;}
+.agency-principles{display:flex;flex-wrap:wrap;gap:24px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line);}
+.agency-principles>span{display:flex;gap:8px;align-items:baseline;font-size:12px;font-weight:500;}
+.agency-principles small{font:italic 12px 'Fraunces',Georgia,serif;color:var(--accent);}
+.agency-intro-art{position:relative;color:var(--ink);border:1px solid var(--line);border-radius:50% 50% 16px 16px;background:#f7f6f2;padding:20px 14px 26px;transform:rotate(-3deg);}
+.agency-intro-art svg{display:block;width:100%;height:auto;}
+.agency-art-caption{display:block;text-align:center;font:italic 14px 'Fraunces',Georgia,serif;color:#77776f;}
+@media(max-width:760px){.agency-intro{grid-template-columns:1fr;gap:30px;padding-top:8px;padding-bottom:38px;margin-bottom:20px;}.agency-intro-art{width:230px;max-width:80%;justify-self:center;padding:10px 12px 20px;}.client-brands .agency-intro h2{font-size:38px;}.agency-intro-copy>p{font-size:15px;}.agency-principles{gap:18px;}}
+
+/* Replace the abstract illustration with a labeled, concrete service sequence. */
+.agency-intro-art.agency-process{border-radius:20px;transform:none;padding:30px;}
+.agency-process-label{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#77776f;margin-bottom:24px;}
+.agency-process-step{display:flex;align-items:flex-start;gap:16px;position:relative;padding:22px 0;border-top:1px solid var(--line);}
+.agency-process-step:last-child{padding-bottom:0;}
+.agency-process-icon{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:42px;height:42px;border:1px solid #ead5ce;border-radius:12px;color:var(--accent);background:#fff;}
+.agency-process-icon svg{width:24px;height:24px;}
+.agency-process-step h3{font-size:23px;margin:0 0 8px;}
+.agency-process-step p{font-size:13px;color:#696961;line-height:1.6;margin:0;}
+.agency-process-number{font:italic 12px 'Fraunces',Georgia,serif;color:#99998f;margin-left:auto;padding-top:4px;}
+@media(max-width:760px){.agency-intro-art.agency-process{width:100%;max-width:100%;justify-self:stretch;padding:24px;}.agency-process-step h3{font-size:22px;}}
+
+/* Compact directional illustration on phones; detailed process stays on desktop. */
+.agency-mobile-graphic{display:none;}
+@media(max-width:760px){
+ .agency-intro-art.agency-process{display:none;}
+ .agency-mobile-graphic{display:block;width:100%;max-width:360px;justify-self:center;color:var(--ink);border-top:1px solid var(--line);padding-top:12px;}
+ .agency-mobile-graphic svg{display:block;width:100%;height:auto;}
+ .agency-intro{gap:18px;}
+ .agency-principles{display:none;}
+}

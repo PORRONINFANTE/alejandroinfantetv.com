@@ -871,3 +871,7 @@ body.portfolio-viewer-open{overflow:hidden;}
  .video-collection .section-head{margin-bottom:28px;}
  .video-portfolio-page .video-collection{padding-top:44px;}
 }
+
+
+/* Match the construction mark’s optical size to the wider client logos. */
+.client-logo img[src$="construcciones.svg"]{transform:scale(1.28);}

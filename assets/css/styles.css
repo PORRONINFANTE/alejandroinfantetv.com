@@ -1,3 +1,6 @@
+/* Local fonts keep rendering independent of Google Fonts connectivity. */
+@font-face{font-family:'Fraunces';src:url('../fonts/Fraunces.woff') format('woff');font-weight:100 900;font-style:normal;font-display:swap;}
+@font-face{font-family:'Inter Tight';src:url('../fonts/InterTight.woff') format('woff');font-weight:100 900;font-style:normal;font-display:swap;}
 
 /* Alejandro Infante — shared design system
    Palette + voice per Brand Brief: premium, minimal, bold, high-contrast,
@@ -749,7 +752,7 @@ a.whatsapp-float:hover,a.whatsapp-float:focus-visible{background:#b8f5cf;color:#
 .client-logo-window{padding-block:8px;}
 .client-logo img[src$="td-vip.svg"]{transform:scale(.78);}
 .client-logo img[src$="paseo-del-alamo.svg"]{transform:scale(1.15);}
-.client-logo img[src$="grupo-ortiz.svg"]{transform:scale(1.2);}
+.client-logo img[src$="grupo-ortiz-vector.svg"]{transform:scale(1.2);}
 .client-logo-grid{grid-template-columns:repeat(8,minmax(0,1fr));}
 @media(max-width:1000px){.client-logo-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
 @media(max-width:640px){
@@ -874,4 +877,9 @@ body.portfolio-viewer-open{overflow:hidden;}
 
 
 /* Match the construction mark’s optical size to the wider client logos. */
-.client-logo img[src$="construcciones.svg"]{transform:scale(1.28);}
+.client-logo img[src$="construcciones-vector.svg"]{transform:scale(1.28);}
+
+/* Price amounts share one baseline; only the currency/period label stacks. */
+.plan-amount .usd-value{display:inline;font:inherit;color:inherit;margin:0;}
+.plan-amount{white-space:nowrap;}
+@media(max-width:600px){.plan-card{min-width:0;}.plan-amount{font-size:clamp(32px,9vw,38px);}.price-band{padding:36px 20px;}.price-band-amount{max-width:100%;}}

@@ -15,7 +15,7 @@
     }
   }
 
-  var usdRate = null, usdRateDate = '', usdRequest = null, usdCheckedAt = 0;
+  var usdRate = 0.05308, usdRateDate = '2026-11-01', usdRequest = null, usdCheckedAt = 0;
   function validUsdRate(d){
     return d && d.base === 'MXN' && d.quote === 'USD' && Number.isFinite(d.rate) && d.rate > 0 && d.rate < 1 && /^\d{4}-\d{2}-\d{2}$/.test(d.date) && Number.isFinite(Date.parse(d.date)) && Date.parse(d.date) <= Date.now() + 86400000 && Date.now() - Date.parse(d.date) < 7 * 86400000;
   }
@@ -31,12 +31,14 @@
   }
   function loadUsdPrices(){
     if (usdRequest || (usdRate && Date.now() - usdCheckedAt < 21600000)) return;
-    if (!usdRate) {
+    if (!usdCheckedAt) {
       try {
         var saved = JSON.parse(localStorage.getItem('ai_mxn_usd_v1'));
         if (validUsdRate(saved)) { usdRate = saved.rate; usdRateDate = saved.date; updateUsdPrices(true); }
       } catch (err) {}
     }
+    updateUsdPrices(true);
+    if (typeof fetch !== 'function' || typeof AbortController !== 'function') return;
     var controller = new AbortController();
     var timeout = setTimeout(function(){ controller.abort(); }, 8000);
     usdRequest = fetch('https://api.frankfurter.dev/v2/rate/MXN/USD', {signal:controller.signal})
@@ -55,6 +57,7 @@
       .finally(function(){ clearTimeout(timeout); usdRequest = null; });
   }
   window.addEventListener('focus', function(){ if (document.documentElement.lang === 'en') loadUsdPrices(); });
+  window.addEventListener('online', function(){ if (document.documentElement.lang === 'en') loadUsdPrices(); });
 
   function reinitReveal(root){
     if (!root) return;

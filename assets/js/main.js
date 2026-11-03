@@ -167,4 +167,42 @@
     fillLogoTrack();
     window.addEventListener('resize', fillLogoTrack, {passive:true});
   });
+
+  // Native horizontal swiping works without JS; controls add position and keyboard access.
+  document.querySelectorAll('.plans-grid').forEach(function(grid){
+    var cards=Array.from(grid.querySelectorAll('.plan-card'));
+    if(cards.length<2)return;
+    var english=document.documentElement.lang==='en';
+    var controls=document.createElement('div');controls.className='plan-carousel-controls';
+    var hint=document.createElement('span');hint.className='plan-carousel-hint';
+    var dots=document.createElement('div');dots.className='plan-carousel-dots';
+    dots.setAttribute('role','group');dots.setAttribute('aria-label',english?'Choose a plan':'Elegir un plan');
+    var buttons=[],frame=null;
+    var phone=window.matchMedia('(max-width: 600px)');
+    function jump(index){
+      var x=cards[index].getBoundingClientRect().left-grid.getBoundingClientRect().left+grid.scrollLeft-3;
+      grid.scrollTo({left:x,behavior:motionQuery.matches?'auto':'smooth'});
+    }
+    cards.forEach(function(card,index){
+      var button=document.createElement('button');button.type='button';button.className='plan-carousel-dot';
+      button.setAttribute('aria-label',(english?'Show plan: ':'Ver plan: ')+card.querySelector('h3').textContent);
+      button.addEventListener('click',function(){jump(index);});dots.appendChild(button);buttons.push(button);
+    });
+    controls.appendChild(hint);controls.appendChild(dots);grid.insertAdjacentElement('afterend',controls);
+    function update(){
+      frame=null;var left=grid.getBoundingClientRect().left+3,index=0,best=Infinity;
+      cards.forEach(function(card,i){var distance=Math.abs(card.getBoundingClientRect().left-left);if(distance<best){index=i;best=distance;}});
+      cards.forEach(function(card,i){card.classList.toggle('is-active',i===index);buttons[i].setAttribute('aria-current',i===index?'true':'false');});
+      hint.textContent=(index+1)+' / '+cards.length+' · '+(english?'Swipe to compare':'Desliza para comparar');
+      if(phone.matches){grid.setAttribute('tabindex','0');grid.setAttribute('role','region');grid.setAttribute('aria-label',english?'Service plans. Swipe to compare.':'Planes del servicio. Desliza para comparar.');}
+      else{grid.removeAttribute('tabindex');grid.removeAttribute('role');grid.removeAttribute('aria-label');}
+    }
+    grid.addEventListener('scroll',function(){if(frame===null)frame=requestAnimationFrame(update);},{passive:true});
+    grid.addEventListener('keydown',function(e){
+      if(!phone.matches||e.target!==grid||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+      e.preventDefault();var index=buttons.findIndex(function(b){return b.getAttribute('aria-current')==='true';});
+      jump(e.key==='Home'?0:e.key==='End'?cards.length-1:Math.max(0,Math.min(cards.length-1,index+(e.key==='ArrowRight'?1:-1))));
+    });
+    phone.addEventListener('change',update);window.addEventListener('resize',update,{passive:true});update();
+  });
 })();
